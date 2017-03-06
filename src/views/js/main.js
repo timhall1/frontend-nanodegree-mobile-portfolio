@@ -417,6 +417,9 @@ var resizePizzas = function(size) {
       default:
         console.log("bug in changeSliderLabel");
     }
+
+    // Utilize requestAnimationFrame, which schedules JS to run at the earliest possible moment in each frame
+    window.requestAnimationFrame(resizePizzas);
   }
 
   changeSliderLabel(size);
@@ -448,11 +451,14 @@ var resizePizzas = function(size) {
   }
 
   // Iterates through pizza elements on the page and changes their widths
+  // Removed variables with document calls from for loop
+
   function changePizzaSizes(size) {
-    for (var i = 0; i < document.querySelectorAll(".randomPizzaContainer").length; i++) {
-      var dx = determineDx(document.querySelectorAll(".randomPizzaContainer")[i], size);
-      var newwidth = (document.querySelectorAll(".randomPizzaContainer")[i].offsetWidth + dx) + 'px';
-      document.querySelectorAll(".randomPizzaContainer")[i].style.width = newwidth;
+    var elements = document.querySelectorAll(".randomPizzaContainer");
+    var dx = determineDx(elements[0], size);
+    var newwidth = (elements[0].offsetWidth + dx) + 'px';
+    for (var i = 0; i < elements.length; i++) {
+      elements[i].style.width = newwidth;
     }
   }
 
@@ -472,7 +478,6 @@ var pizzasDiv = document.getElementById("randomPizzas");
 // Utilize requestAnimationFrame, which schedules JS to run at the earliest possible moment in each frame
 window.requestAnimationFrame(function() {
   for (var i = 2; i < 100; i++) {
-    // var pizzasDiv = document.getElementById("randomPizzas");
     pizzasDiv.appendChild(pizzaElementGenerator(i));
   }
 });
@@ -538,5 +543,5 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
     document.querySelector("#movingPizzas1").appendChild(elem);
   }
-  updatePositions();
+  window.requestAnimationFrame(updatePositions);
 });

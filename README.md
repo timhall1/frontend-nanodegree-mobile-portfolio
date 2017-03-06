@@ -28,6 +28,7 @@ Grunt is used in this application to run common tasks in development, such as ug
 
 #### views/js/main.js
 * Removed document queries from within loops wherever possible
+* Utilized requestAnimationFrame wherever possible to improve animation load time
 
 #### pizza.html
 * Reduced image file sizes by limiting dimensions to maximum size needed to display as intended.
