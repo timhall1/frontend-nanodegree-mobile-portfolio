@@ -475,7 +475,6 @@ window.performance.mark("mark_start_generating"); // collect timing data
 
 // This for-loop actually creates and appends all of the pizzas when the page loads
 var pizzasDiv = document.getElementById("randomPizzas");
-// Utilize requestAnimationFrame, which schedules JS to run at the earliest possible moment in each frame
 window.requestAnimationFrame(function() {
   for (var i = 2; i < 100; i++) {
     pizzasDiv.appendChild(pizzaElementGenerator(i));
@@ -530,7 +529,8 @@ function updatePositions() {
 window.addEventListener('scroll', updatePositions);
 
 // Generates the sliding pizzas when the page loads.
-document.addEventListener('DOMContentLoaded', function() {
+// Added rAF to optimize updatePositions
+document.addEventListener('DOMContentLoaded', window.requestAnimationFrame(function() {
   var cols = 8;
   var s = 256;
   for (var i = 0; i < 200; i++) {
@@ -544,4 +544,4 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector("#movingPizzas1").appendChild(elem);
   }
   window.requestAnimationFrame(updatePositions);
-});
+}));
