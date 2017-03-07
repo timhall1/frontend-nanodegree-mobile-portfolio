@@ -49,3 +49,10 @@ form {
  .container {
   background-color: rgba(240, 60, 60, 0.8);
 }
+
+img.mobile-device { display: none; }
+img.non-mobile-device { display: initial; }
+@media only screen and (max-width: 480px) {
+  img.non-mobile-device { display: none; }
+  img.mobile-device { display: initial; }
+}
