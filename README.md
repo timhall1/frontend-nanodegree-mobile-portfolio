@@ -25,12 +25,15 @@ Grunt is used in this application to run common tasks in development, such as ug
 * Minified CSS and JS files
 * Loaded CSS inline wherever possible (using Grunt tools to automate this process)
 * Reduced image file sizes by limiting dimensions to maximum size needed to display as intended.
+* Set image sizes to prevent content reflow
 
 #### views/js/main.js
 * Removed document queries from within loops wherever possible
 * Utilized requestAnimationFrame wherever possible to improve animation load time
+* Changed querySelectorAll to getElementsByClassName in main.js
 
 #### pizza.html
 * Reduced image file sizes by limiting dimensions to maximum size needed to display as intended.
 * Moved render blocking CSS and JS
+* Reduced number of pizzas in background and determined number of rows based on screen size
 
