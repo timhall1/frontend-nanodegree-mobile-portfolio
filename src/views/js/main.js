@@ -417,9 +417,6 @@ var resizePizzas = function(size) {
       default:
         console.log("bug in changeSliderLabel");
     }
-
-    // Utilize requestAnimationFrame, which schedules JS to run at the earliest possible moment in each frame
-    window.requestAnimationFrame(resizePizzas);
   }
 
   changeSliderLabel(size);
@@ -451,14 +448,11 @@ var resizePizzas = function(size) {
   }
 
   // Iterates through pizza elements on the page and changes their widths
-  // Removed variables with document calls from for loop
-
   function changePizzaSizes(size) {
-    var elements = document.querySelectorAll(".randomPizzaContainer");
-    var dx = determineDx(elements[0], size);
-    var newwidth = (elements[0].offsetWidth + dx) + 'px';
-    for (var i = 0; i < elements.length; i++) {
-      elements[i].style.width = newwidth;
+    for (var i = 0; i < document.querySelectorAll(".randomPizzaContainer").length; i++) {
+      var dx = determineDx(document.querySelectorAll(".randomPizzaContainer")[i], size);
+      var newwidth = (document.querySelectorAll(".randomPizzaContainer")[i].offsetWidth + dx) + 'px';
+      document.querySelectorAll(".randomPizzaContainer")[i].style.width = newwidth;
     }
   }
 
@@ -474,12 +468,10 @@ var resizePizzas = function(size) {
 window.performance.mark("mark_start_generating"); // collect timing data
 
 // This for-loop actually creates and appends all of the pizzas when the page loads
-var pizzasDiv = document.getElementById("randomPizzas");
-window.requestAnimationFrame(function() {
-  for (var i = 2; i < 100; i++) {
-    pizzasDiv.appendChild(pizzaElementGenerator(i));
-  }
-});
+for (var i = 2; i < 100; i++) {
+  var pizzasDiv = document.getElementById("randomPizzas");
+  pizzasDiv.appendChild(pizzaElementGenerator(i));
+}
 
 // User Timing API again. These measurements tell you how long it took to generate the initial pizzas
 window.performance.mark("mark_end_generating");
@@ -529,8 +521,7 @@ function updatePositions() {
 window.addEventListener('scroll', updatePositions);
 
 // Generates the sliding pizzas when the page loads.
-// Added rAF to optimize updatePositions
-document.addEventListener('DOMContentLoaded', window.requestAnimationFrame(function() {
+document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
   for (var i = 0; i < 200; i++) {
@@ -543,5 +534,5 @@ document.addEventListener('DOMContentLoaded', window.requestAnimationFrame(funct
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
     document.querySelector("#movingPizzas1").appendChild(elem);
   }
-  window.requestAnimationFrame(updatePositions);
-}));
+  updatePositions();
+});
